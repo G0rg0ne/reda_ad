@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning Overview</title>
+    <title>Frugal learning</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
@@ -44,28 +44,27 @@
 
     <header class="tech-header">
         <a href="index.html" class="return-button"><i class="fas fa-home"></i> Return</a>
-        <h1>Machine Learning Overview</h1>
-        <p>Exploring the fundamentals of machine learning</p>
+        <h1>Frugal learning</h1>
+        <p>Exploring pre-training methods to improve downstream tasks</p>
     </header>
 
     <div class="container">
         <div class="content">
             <h2>Introduction to Machine Learning</h2>
-            <p>Machine learning is a branch of artificial intelligence that focuses on building systems that learn from data.</p>
-            <h3>Key Concepts</h3>
-            <ul>
-                <li>Supervised Learning</li>
-                <li>Unsupervised Learning</li>
-                <li>Reinforcement Learning</li>
-            </ul>
-            <h3>Applications</h3>
-            <p>Machine learning is used in various fields such as finance, healthcare, and technology to improve decision-making and automate processes.</p>
+            <p>ID document classification plays a critical role in automated identity verification, helping businesses and institutions efficiently process passports, driver’s licenses, and other forms of identification. However, due to the highly sensitive nature of these documents and strict data protection regulations like the General Data Protection Regulation (GDPR), developing such systems requires careful attention to data privacy and frugality.</p>
+            <p>The main goal is to find the best pre-training methods that can enable model to learn the best image representation in an unsupervised manner and need very little annotation (Few-shot/one-shot) to perform well on any given downstream task.</p>
         </div>
         <!-- New Project Description Section -->
         <div class="content d-flex align-items-center">
             <div class="project-description">
-                <h3>Project: Frugal Learning</h3>
-                <p>This project focuses on developing efficient machine learning models that require minimal resources, making them suitable for deployment in resource-constrained environments.</p>
+                <h4>Overview</h4>
+                <p>To address the challenge of limited labeled data, self-supervised learning (SSL) techniques such as <a href="https://arxiv.org/abs/2204.07141">Masked Siamese Networks (MSN)</a> and <a href="https://arxiv.org/abs/2006.09882">SwAV (Swapping Assignments between Views)</a> from Meta AI provide promising solutions. These methods enable pre-training models on unlabeled or synthetically generated ID-like images, reducing reliance on sensitive real-world ID documents.</p>
+                <h4>Achievements:</h4>
+                <ul>
+                    <li>End-2-End pipeline for model training and evaluation on internal/public datasets.</li>
+                    <li>Finetunning models on client's data.</li>
+                    <li>Set up a new SOTA performance on client’s benchmark.</li>
+                </ul>
             </div>
             <img src="images/frugal_learning.png" alt="Frugal Learning Technology" class="ml-3" style="max-width: 500px; height: auto;">
         </div>

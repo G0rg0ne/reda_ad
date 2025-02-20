@@ -44,30 +44,67 @@
 
     <header class="tech-header">
         <a href="index.html" class="return-button"><i class="fas fa-home"></i> Return</a>
-        <h1>Deep Learning Techniques</h1>
-        <p>Diving into the world of neural networks</p>
+        <h1>Aroma's decomposition</h1>
+        <p>Development of an Automated Molecular Analysis Tool for Aroma Composition </p>
     </header>
 
     <div class="container">
         <div class="content">
-            <h2>Understanding Neural Networks</h2>
-            <p>Deep learning is a subset of machine learning that uses neural networks with many layers.</p>
-            <h3>Popular Architectures</h3>
-            <ul>
-                <li>Convolutional Neural Networks (CNNs)</li>
-                <li>Recurrent Neural Networks (RNNs)</li>
-                <li>Generative Adversarial Networks (GANs)</li>
-            </ul>
-            <h3>Use Cases</h3>
-            <p>Deep learning is widely used in image and speech recognition, natural language processing, and more.</p>
+            <p>A leading industrial company aims to develop a tool that enables the study of the molecular composition of aromas in the market. The primary objectives are to stay competitive with other producers and implement quality control measures throughout their supply chain. By optimizing their processes, the company seeks to reduce manual intervention time in these analytical tasks.</p>    
+            <p>To address this challenge, we developed a fully automated end-to-end pipeline for data ingestion and preprocessing. The data, originating from a Gas Chromatography-Mass Spectrometry (GC-MS) instrument, consists of three-dimensional tabular datasets. A key component of our approach is the implementation of sparse coding techniques to detect molecules present in aromas. This method enables the identification of compounds by leveraging standardized molecular spectra, enhancing the accuracy and efficiency of aroma analysis.</p>
         </div>
         <!-- New Project Description Section -->
         <div class="content d-flex align-items-center">
             <div class="project-description">
-                <h3>Project: Frugal Learning</h3>
-                <p>This project focuses on developing efficient machine learning models that require minimal resources, making them suitable for deployment in resource-constrained environments.</p>
+                <h4>Overview</h4>
+                <p>Sparse coding provides a powerful, automated approach to molecular identification in GC-MS analysis by leveraging the NIST spectral database. It improves detection accuracy, reduces manual workload, and enhances the overall efficiency of chemical analysis in industrial and research applications. For more information on sparse coding techniques, visit the <a href="https://github.com/bwohlberg/sporco">SPORCO GitHub repository</a>.</p>
+                <h4>Activities:</h4>
+                <ul>
+                    <li>Preprocessed raw chromatographic signals to improve data quality and ensure consistency.</li>
+                    <li>Applied sparse coding techniques to encode chromatogram peaks into low-dimensional representations.</li>
+                    <li>Identified key molecular markers responsible for differentiating aroma profiles.</li>
+                </ul>
+                <h4>How it works:</h4>
+                <h2>Data Preprocessing</h2>
+                <ul>
+                    <li>The raw GC-MS signal (chromatograms and mass spectra) is collected.</li>
+                    <li>Baseline correction, noise filtering, and peak detection are performed to extract relevant spectral information.</li>
+                </ul>
+                
+                <h5>Dictionary Construction Using NIST Database</h5>
+                <ul>
+                    <li>The NIST database contains standardized mass spectra of known molecules.</li>
+                    <li>These spectra are used to construct a dictionary where each basis function (column) represents a reference spectrum of a molecule.</li>
+                </ul>
+                
+                <h5>Sparse Decomposition of the Sample Spectrum</h5>
+                <ul>
+                    <li>Given an unknown GC-MS spectrum, sparse coding finds a sparse combination of dictionary entries that best reconstructs the observed signal.</li>
+                    <li>This is typically formulated as:</li>
+                </ul>
+                <div style="text-align: center; font-size: 1.5em;">
+                    X = D ⋅ A + ε
+                </div>
+                <p>In this equation:</p>
+                <ul>
+                    <li><strong>X</strong> represents the observed spectrum, which is the input GC-MS data.</li>
+                    <li><strong>D</strong> stands for the dictionary, derived from NIST spectra.</li>
+                    <li><strong>A</strong> is the sparse coefficient matrix, showing the contribution of each molecule.</li>
+                </ul>
+                <p>L1-norm minimization is used to ensure only a few dictionary elements (molecules) contribute to the reconstruction.</p>
+                
+                <h4>Molecule Identification</h4>
+                <ul>
+                    <li>The nonzero entries in <code>A</code> indicate the presence of corresponding molecules from the NIST database.</li>
+                    <li>The identified molecules are validated using retention times and intensity patterns.</li>
+                </ul>
+                <h4>Achievements:</h4>
+                <ul>
+                    <li>Developed an automated GC-MS analysis pipeline leveraging sparse encoding, reducing manual workload by 50%.</li>
+                    <li>Built an interactive sparse representation tool for real-time chromatographic data analysis, improving efficiency and accuracy.</li>
+                </ul>
             </div>
-            <img src="images/aroma.png" alt="Frugal Learning Technology" class="ml-3" style="max-width: 500px; height: auto;">
+            <img src="images/aroma.png" alt="Frugal Learning Technology" class="mb-3" style="max-width: 500px; height: auto;">
         </div>
     </div>
 

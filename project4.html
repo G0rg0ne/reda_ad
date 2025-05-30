@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Object and Face Detection on STM32N6 - Career Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        .blog-header {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .blog-post {
+            background-color: #fff;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .tech-badge {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .project-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: block;
+        }
+        .image-caption {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="blog-header">
+        <h1>Real-Time Object and Face Detection on STM32N6</h1>
+        <p class="lead">A Live Demo at Embedded World 2025</p>
+        <p><a href="index.html" class="text-white">← Back to Home</a></p>
+    </header>
+
+    <div class="container mt-4">
+        <div class="blog-post">
+            <p class="text-muted">Posted on March 1, 2025</p>
+            
+            <h2 class="section-title">Introduction</h2>
+            <p>At <a href="https://www.embedded-world.de/en" target="_blank">Embedded World 2025</a> in Nuremberg, Germany, we had the exciting opportunity to collaborate with <strong>STMicroelectronics</strong> to showcase the capabilities of their new <strong>STM32N6</strong> microcontroller, designed specifically for AI and edge computing use cases. Our goal was to push the boundaries of what's possible with real-time AI inference on embedded hardware — and present it through a <strong>live demo</strong> at one of the biggest tech expos of the year.</p>
+            
+            <div class="highlight-box">
+                <p>We developed a <strong>real-time object detection and face-blurring system</strong> that runs entirely on the <strong>STM32N6570-DK Developer Kit</strong>. This project highlights the powerful AI features of the STM32N6, the flexibility of open-source deep learning models, and the optimization pipeline needed to bring a full computer vision system to an embedded device.</p>
+            </div>
+
+            <div class="image-container">
+                <img src="images/ST_devkit.avif" alt="STM32N6570-DK Development Kit" class="project-image">
+                <p class="image-caption">The STM32N6570-DK Development Kit used for our real-time object detection system</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>About Embedded World 2025:</h4>
+                <p>Embedded World is the world's largest exhibition and conference for embedded systems, bringing together industry leaders, experts, and innovators. The event provides a unique platform for showcasing cutting-edge technologies and networking with the global embedded community. Our participation in this prestigious event allowed us to demonstrate our work to a wide audience of industry professionals and receive valuable feedback.</p>
+            </div>
+
+            <h2 class="section-title">Implementation Details</h2>
+            
+            <h3>Model Selection and Training</h3>
+            <p>To build our detection system, we used <strong>Ultralytics' YOLOv8</strong> and <strong>YOLOX</strong> as foundational models due to their state-of-the-art performance in object detection tasks, especially for lightweight real-time applications.</p>
+            
+            <div class="highlight-box">
+                <h4>Model Analysis and Visualization:</h4>
+                <p>During the development process, we extensively used <a href="https://netron.app/" target="_blank">Netron</a>, a powerful model visualization tool, to analyze our ONNX models. This tool proved invaluable for:</p>
+                <ul>
+                    <li>Visualizing the complete neural network architecture</li>
+                    <li>Inspecting layer connections and data flow</li>
+                    <li>Analyzing model complexity and potential bottlenecks</li>
+                    <li>Understanding the impact of quantization on different layers</li>
+                    <li>Debugging model conversion issues</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="images/nexon_sc.png" alt="Netron Model Visualization Interface" class="project-image">
+                    <p class="image-caption">Netron's interactive interface showing the detailed architecture of our ONNX model</p>
+                </div>
+
+                <p>Netron's interactive interface allowed us to:</p>
+                <ul>
+                    <li>Zoom into specific layers and examine their parameters</li>
+                    <li>Track tensor shapes throughout the network</li>
+                    <li>Identify optimization opportunities in the model structure</li>
+                    <li>Validate model conversions from different formats</li>
+                    <li>Share model architectures with team members for collaborative debugging</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h4>ST Model Zoo Integration:</h4>
+                <p>We leveraged STMicroelectronics' <a href="https://github.com/STMicroelectronics/stm32ai-modelzoo" target="_blank">STM32 AI Model Zoo</a>, which provided:</p>
+                <ul>
+                    <li>Pre-optimized models specifically designed for STM32 microcontrollers</li>
+                    <li>Early access to confidential frameworks and tools</li>
+                    <li>Reference implementations for object detection and face recognition</li>
+                    <li>Optimized training scripts for transfer learning</li>
+                    <li>Performance benchmarks for various STM32 platforms</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Model Benchmarking and Optimization:</h4>
+                <p>Throughout the development process, we utilized <a href="https://github.com/STMicroelectronics/stm32ai-modelzoo-services" target="_blank">STM32AI Model Zoo Services</a> to benchmark our solution. This powerful tool allowed us to:</p>
+                <ul>
+                    <li>Evaluate model performance across different STM32 devices before deployment</li>
+                    <li>Compare performance metrics after each retraining iteration</li>
+                    <li>Optimize model parameters based on benchmark results</li>
+                    <li>Make informed decisions about model architecture and quantization</li>
+                </ul>
+            </div>
+
+            <div class="image-container">
+                <img src="images/benchmark.png" alt="Model Benchmarking Results" class="project-image">
+                <p class="image-caption">Benchmark results showing model performance across different STM32 devices</p>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Model Architecture Details:</h4>
+                <ul>
+                    <li>YOLOv8-nano variant for optimal performance on embedded devices</li>
+                    <li>Input resolution: 320x320 pixels</li>
+                    <li>Quantized to INT8 precision</li>
+                    <li>Model size after optimization: ~2.5MB</li>
+                </ul>
+            </div>
+            
+            <p>Our pipeline consisted of two parallel processes:</p>
+            <ul>
+                <li><strong>Person Detection</strong> using YOLO models</li>
+                <li><strong>Face Detection and Blurring</strong> of detected faces in real-time</li>
+            </ul>
+
+            <h3>Model Optimization and Deployment</h3>
+            <p>After training, we converted the models to <strong>ONNX format</strong>, and applied post-training quantization from <strong>float32 to int8</strong> using <strong>ONNX Runtime</strong>. This significantly reduced the memory footprint and allowed efficient inference on the microcontroller.</p>
+
+            <div class="highlight-box">
+                <h4>Performance Metrics:</h4>
+                <ul>
+                    <li>Inference time: ~15ms per frame</li>
+                    <li>Power consumption: ~500mW during active inference</li>
+                    <li>Memory usage: ~8MB RAM</li>
+                    <li>FPS: ~30 frames per second in real-world conditions</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Key Technologies Used:</h4>
+                <div class="tech-badge">YOLOv8</div>
+                <div class="tech-badge">YOLOX</div>
+                <div class="tech-badge">ONNX Runtime</div>
+                <div class="tech-badge">STM32N6570-DK</div>
+                <div class="tech-badge">C Programming</div>
+                <div class="tech-badge">TensorRT</div>
+                <div class="tech-badge">OpenCV</div>
+            </div>
+
+            <h3>Hardware Specifications</h3>
+            <p>The STM32N6570-DK development kit features:</p>
+            <ul>
+                <li>Dual-core ARM Cortex-M7 processor running at 480MHz</li>
+                <li>2MB Flash memory and 1MB SRAM</li>
+                <li>Neural Network Processing Unit (NPU) for AI acceleration</li>
+                <li>Integrated camera interface</li>
+                <li>Multiple I/O interfaces for sensor integration</li>
+            </ul>
+
+            <h2 class="section-title">Feedback and Observations</h2>
+            <p>The demo received <strong>positive feedback</strong> from attendees, who appreciated both the concept and the smooth performance of the embedded AI system. Running object and face detection <strong>live on a microcontroller</strong> — with no offloading to external compute — caught a lot of attention.</p>
+
+            <div class="image-container">
+                <img src="images/embedded_world_event_feedback.png" alt="Live Demo at Embedded World 2025" class="project-image">
+                <p class="image-caption">Our live demo at Embedded World 2025, showcasing real-time object detection and face blurring</p>
+            </div>
+
+            <h3>Challenges and Limitations</h3>
+            <p>However, we also observed limitations in crowded scenes:</p>
+            <ul>
+                <li>The system struggled when <strong>dozens of people</strong> entered the field of view simultaneously.</li>
+                <li>This was primarily due to the <strong>image downsampling</strong> required to match the model's input resolution.</li>
+                <li>As a result, the model occasionally missed smaller or overlapping faces in highly dense environments.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>Optimization Techniques Used:</h4>
+                <ul>
+                    <li>Model pruning to reduce complexity</li>
+                    <li>Quantization-aware training</li>
+                    <li>Custom kernel optimization for the NPU</li>
+                    <li>Memory-efficient data pipeline</li>
+                    <li>Parallel processing for detection and blurring</li>
+                    <li>ST's proprietary model optimization tools</li>
+                    <li>Early access to ST's AI development framework</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Conclusion</h2>
+            <p>This collaboration with STMicroelectronics was a great success and a glimpse into the future of <strong>on-device AI</strong>. We demonstrated that it's possible to run sophisticated deep learning models — like YOLO — directly on a low-power embedded device, and achieve real-time performance with thoughtful optimization.</p>
+
+            <div class="highlight-box">
+                <h4>Future Work and Collaborations:</h4>
+                <ul>
+                    <li><strong>Depth Estimation Integration:</strong> STMicroelectronics expressed interest in including depth estimation models to their GitHub repositories, building on our experience in fine-tuning such models for various clients.</li>
+                    <li><strong>Upcoming Demo:</strong> We are preparing another object detection demonstration for an upcoming event in Lyon this September, showcasing further advancements in our technology.</li>
+                    <li><strong>Tool Enhancement:</strong> We have provided comprehensive feedback on the various tools we had access to, contributing to the continuous improvement of ST's development ecosystem.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>&copy; 2025 Reda ADARDOR - Career profile</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> 

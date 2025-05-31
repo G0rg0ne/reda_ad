@@ -9,39 +9,88 @@
     <style>
         body {
             background-color: #f4f4f4;
+            line-height: 1.6;
         }
         .blog-header {
             background-color: #333;
             color: #fff;
-            padding: 20px 0;
+            padding: 40px 0;
             text-align: center;
+            margin-bottom: 30px;
         }
         .blog-post {
             background-color: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .blog-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         .intro {
-            padding: 20px;
+            padding: 30px;
             background-color: #fff;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .career-timeline {
             text-align: center;
-            margin: 20px 0;
+            margin: 30px 0;
+        }
+        .sidebar-widget {
+            background-color: #fff;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .sidebar-widget h4 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+        .tech-badge {
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .blog-post h2 {
+            margin-bottom: 15px;
+        }
+        .blog-post h2 a {
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+        .blog-post h2 a:hover {
+            color: #007bff;
+        }
+        .text-muted {
+            color: #6c757d !important;
+            font-size: 0.9rem;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
-
     <header class="blog-header">
         <h1>Career profile</h1>
-        <p>Sharing my experiences</p>
+        <p class="lead">Sharing my experiences in AI and Machine Learning</p>
     </header>
 
-    <div class="container mt-4">
+    <div class="container">
         <div class="intro">
             <h2>About Me</h2>
             <p>I am a Machine Learning engineer with expertise in Deep Learning, Data Analysis, and Computer Vision, my role is to leverage data to extract meaningful insights and develop predictive models that enhance decision-making. I work on a variety of projects, including internal research and development initiatives as well as client-focused projects through prospecting. My primary responsibility is to design and implement data science solutions for clients, guiding them through every stage of the data lifecycle. By transforming raw data into actionable insights, I help organizations unlock value and drive strategic and operational decisions. </p>
@@ -68,20 +117,21 @@
                     <p class="text-muted">Posted on March 1, 2025</p>
                     <p>Live demonstration at Embedded World 2025 showcasing real-time AI inference on STM32N6570-DK, featuring object detection and face blurring capabilities. Developed in collaboration with STMicroelectronics using their AI Model Zoo and early access tools.</p>
                 </div>
-                <!-- Add more blog posts as needed -->
             </div>
-            <div class="col-md-4">  
-                <div class="p-4 mb-3 bg-light rounded">
+            <div class="col-md-4">
+                <div class="sidebar-widget">
                     <h4>Languages</h4>
-                    <p class="mb-0">French<br>English<br>Arabic<br>Spanish</p>
+                    <div class="tech-badge">French</div>
+                    <div class="tech-badge">English</div>
+                    <div class="tech-badge">Arabic</div>
+                    <div class="tech-badge">Spanish</div>
                 </div>
-                <div class="p-4">
+                <div class="sidebar-widget">
                     <h4>Links</h4>
-                    <ol class="list-unstyled mb-0">
-                        <li><a href="#">Linkedin</a></li>
-                        <li><a href="#">Github</a></li>
-                        <!-- Add more archives as needed -->
-                    </ol>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none">LinkedIn</a></li>
+                        <li><a href="#" class="text-decoration-none">GitHub</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -91,8 +141,8 @@
         <img src="images/timeline.png" alt="Career Timeline" class="img-fluid">
     </div>
 
-    <footer class="text-center py-4">
-        <p>&copy; 2025 Reda ADARDOR - Career profile </p>
+    <footer class="text-center">
+        <p>&copy; 2025 Reda ADARDOR - Career profile</p>
     </footer>
 
     <!-- Bootstrap JS and dependencies -->

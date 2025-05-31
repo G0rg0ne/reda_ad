@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLflow Server Setup with PostgreSQL and MinIO - Career Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        .blog-header {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .blog-post {
+            background-color: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .project-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: block;
+        }
+        .image-caption {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease-in-out;
+        }
+        .back-link:hover {
+            color: #007bff;
+            text-decoration: none;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+        pre {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.5;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        pre code {
+            color: #d4d4d4;
+        }
+        /* Syntax highlighting colors */
+        .hljs-keyword {
+            color: #569cd6;
+        }
+        .hljs-string {
+            color: #ce9178;
+        }
+        .hljs-comment {
+            color: #6a9955;
+        }
+        .hljs-number {
+            color: #b5cea8;
+        }
+        .hljs-function {
+            color: #dcdcaa;
+        }
+        .hljs-variable {
+            color: #9cdcfe;
+        }
+        .hljs-operator {
+            color: #d4d4d4;
+        }
+        .hljs-punctuation {
+            color: #d4d4d4;
+        }
+        /* Add a subtle hover effect */
+        pre:hover {
+            border-color: #007bff;
+            transition: border-color 0.2s ease-in-out;
+        }
+        /* Add line numbers */
+        pre {
+            counter-reset: line;
+        }
+        pre code {
+            position: relative;
+            padding-left: 3.5em;
+        }
+        pre code::before {
+            counter-increment: line;
+            content: counter(line);
+            position: absolute;
+            left: 0;
+            width: 2.5em;
+            text-align: right;
+            color: #666;
+            border-right: 1px solid #666;
+            padding-right: 0.5em;
+            margin-right: 0.5em;
+        }
+        code {
+            color: #e83e8c;
+        }
+    </style>
+</head>
+<body>
+    <header class="blog-header">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <h1>MLflow Server Setup with PostgreSQL and MinIO</h1>
+        <p class="lead">A Complete Guide to Setting Up MLflow for MLOps Projects</p>
+    </header>
+
+    <div class="container">
+        <div class="blog-post">
+            <h2 class="section-title">Project Overview</h2>
+            <p>This guide provides a comprehensive walkthrough for setting up a production-ready MLflow server using Docker Compose. The setup includes PostgreSQL for metrics storage and MinIO for artifact management, creating a robust foundation for MLOps projects.</p>
+
+            <div class="highlight-box">
+                <h4>Key Components:</h4>
+                <ul>
+                    <li>MLflow Tracking Server for experiment management</li>
+                    <li>PostgreSQL database for metrics and metadata storage</li>
+                    <li>MinIO object storage for artifact management</li>
+                    <li>Docker Compose for orchestration</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Architecture Overview</h2>
+            <div class="image-container">
+                <img src="images/mlflow.png" alt="MLflow Architecture" class="project-image">
+                <p class="image-caption">Architecture diagram of MLflow server setup with PostgreSQL and MinIO</p>
+            </div>
+
+            <h2 class="section-title">Setup Instructions</h2>
+            
+            <h3>1. Project Structure</h3>
+            <p>First, create the following directory structure:</p>
+            <pre>
+mlflow-server/
+├── docker-compose.yml
+├── .env
+└── mlflow/
+    └── Dockerfile</pre>
+
+            <h3>2. Environment Configuration</h3>
+            <p>Create a `.env` file with the following configuration:</p>
+            <pre>
+# PostgreSQL Configuration
+POSTGRES_USER=mlflow
+POSTGRES_PASSWORD=mlflow_password
+POSTGRES_DB=mlflow
+POSTGRES_PORT=5432
+
+# MinIO Configuration
+MINIO_ROOT_USER=minioadmin
+MINIO_ROOT_PASSWORD=minioadmin
+MINIO_PORT=9000
+MINIO_CONSOLE_PORT=9001
+
+# MLflow Configuration
+MLFLOW_PORT=5000
+MLFLOW_TRACKING_URI=http://mlflow:5000</pre>
+
+            <h3>3. Docker Compose Configuration</h3>
+            <p>Create a `docker-compose.yml` file:</p>
+            <pre>
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    networks:
+      - mlflow_network
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_data:/data
+    ports:
+      - "${MINIO_PORT}:9000"
+      - "${MINIO_CONSOLE_PORT}:9001"
+    command: server /data
+    networks:
+      - mlflow_network
+
+  mlflow:
+    build:
+      context: ./mlflow
+      dockerfile: Dockerfile
+    environment:
+      - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    ports:
+      - "${MLFLOW_PORT}:5000"
+    depends_on:
+      - postgres
+      - minio
+    networks:
+      - mlflow_network
+
+volumes:
+  postgres_data:
+  minio_data:
+
+networks:
+  mlflow_network:
+    driver: bridge</pre>
+
+            <h3>4. MLflow Dockerfile</h3>
+            <p>Create a `Dockerfile` in the `mlflow` directory:</p>
+            <pre>
+FROM python:3.9-slim
+
+WORKDIR /app
+
+RUN pip install mlflow psycopg2-binary boto3
+
+EXPOSE 5000
+
+CMD ["mlflow", "server", \
+     "--host", "0.0.0.0", \
+     "--port", "5000", \
+     "--backend-store-uri", "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}", \
+     "--default-artifact-root", "s3://mlflow-artifacts", \
+     "--env-manager", "local"]</pre>
+
+            <h2 class="section-title">Usage Guide</h2>
+
+            <h3>1. Starting the Services</h3>
+            <p>To start all services, run:</p>
+            <pre>docker-compose up -d</pre>
+
+            <h3>2. Accessing the Services</h3>
+            <ul>
+                <li>MLflow UI: <code>http://localhost:5000</code></li>
+                <li>MinIO Console: <code>http://localhost:9001</code></li>
+                <li>PostgreSQL: <code>localhost:5432</code></li>
+            </ul>
+
+            <h3>3. Configuring MLflow Client</h3>
+            <p>In your ML project, configure the MLflow client:</p>
+            <pre>
+import mlflow
+
+mlflow.set_tracking_uri("http://localhost:5000")
+mlflow.set_experiment("my_experiment")</pre>
+
+            <h2 class="section-title">Running Experiments with MLflow</h2>
+            
+            <h3>1. Example train.py Script</h3>
+            <p>Here's a complete example of how to run experiments and log results to MLflow:</p>
+            <pre>
+import mlflow
+import mlflow.sklearn
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+import numpy as np
+
+def train_model(X_train, y_train, params):
+    model = RandomForestClassifier(**params)
+    model.fit(X_train, y_train)
+    return model
+
+def evaluate_model(model, X_test, y_test):
+    predictions = model.predict(X_test)
+    return {
+        'accuracy': accuracy_score(y_test, predictions),
+        'precision': precision_score(y_test, predictions, average='weighted'),
+        'recall': recall_score(y_test, predictions, average='weighted')
+    }
+
+def main():
+    # Set MLflow tracking URI
+    mlflow.set_tracking_uri("http://localhost:5000")
+    
+    # Set experiment name
+    mlflow.set_experiment("model_training")
+    
+    # Load your dataset
+    # data = pd.read_csv('your_dataset.csv')
+    # X = data.drop('target', axis=1)
+    # y = data['target']
+    
+    # For demonstration, create dummy data
+    X = np.random.rand(1000, 20)
+    y = np.random.randint(0, 2, 1000)
+    
+    # Split the data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Define hyperparameters to try
+    param_grid = {
+        'n_estimators': [100, 200],
+        'max_depth': [10, 20],
+        'min_samples_split': [2, 5]
+    }
+    
+    # Run experiments with different hyperparameters
+    for n_estimators in param_grid['n_estimators']:
+        for max_depth in param_grid['max_depth']:
+            for min_samples_split in param_grid['min_samples_split']:
+                params = {
+                    'n_estimators': n_estimators,
+                    'max_depth': max_depth,
+                    'min_samples_split': min_samples_split,
+                    'random_state': 42
+                }
+                
+                # Start MLflow run
+                with mlflow.start_run():
+                    # Log parameters
+                    mlflow.log_params(params)
+                    
+                    # Train model
+                    model = train_model(X_train, y_train, params)
+                    
+                    # Evaluate model
+                    metrics = evaluate_model(model, X_test, y_test)
+                    
+                    # Log metrics
+                    mlflow.log_metrics(metrics)
+                    
+                    # Log model
+                    mlflow.sklearn.log_model(model, "model")
+                    
+                    # Log additional artifacts
+                    feature_importance = pd.DataFrame({
+                        'feature': [f'feature_{i}' for i in range(X.shape[1])],
+                        'importance': model.feature_importances_
+                    })
+                    feature_importance.to_csv('feature_importance.csv', index=False)
+                    mlflow.log_artifact('feature_importance.csv')
+                    
+                    # Log training data sample
+                    pd.DataFrame(X_train[:100]).to_csv('training_sample.csv', index=False)
+                    mlflow.log_artifact('training_sample.csv')
+
+if __name__ == "__main__":
+    main()</pre>
+
+            <h3>2. Running the Experiment</h3>
+            <p>To run the experiment, simply execute the script:</p>
+            <pre>python train.py</pre>
+
+            <div class="highlight-box">
+                <h4>What Gets Logged:</h4>
+                <ul>
+                    <li><strong>Parameters:</strong> All hyperparameters used in the model</li>
+                    <li><strong>Metrics:</strong> Model performance metrics (accuracy, precision, recall)</li>
+                    <li><strong>Model:</strong> The trained model artifact</li>
+                    <li><strong>Artifacts:</strong> Additional files like feature importance and data samples</li>
+                </ul>
+            </div>
+
+            <h3>3. Viewing Results in MLflow UI</h3>
+            <p>After running the experiment, you can view the results in the MLflow UI:</p>
+            <ol>
+                <li>Open <code>http://localhost:5000</code> in your browser</li>
+                <li>Navigate to the "model_training" experiment</li>
+                <li>Compare different runs and their metrics</li>
+                <li>Download artifacts or the model for further use</li>
+            </ol>
+
+            <div class="highlight-box">
+                <h4>Key MLflow Features Used:</h4>
+                <ul>
+                    <li><code>mlflow.start_run()</code> for experiment tracking</li>
+                    <li><code>mlflow.log_params()</code> for hyperparameter logging</li>
+                    <li><code>mlflow.log_metrics()</code> for performance metrics</li>
+                    <li><code>mlflow.log_model()</code> for model versioning</li>
+                    <li><code>mlflow.log_artifact()</code> for additional files</li>
+                </ul>
+            </div>
+
+            <h3>4. Loading and Using Logged Models</h3>
+            <p>To load and use a logged model in another script:</p>
+            <pre>
+import mlflow
+
+# Load the model from MLflow
+model_uri = "runs:/<run_id>/model"
+loaded_model = mlflow.sklearn.load_model(model_uri)
+
+# Make predictions
+predictions = loaded_model.predict(new_data)</pre>
+
+            <div class="highlight-box">
+                <h4>Best Practices for Experiment Logging:</h4>
+                <ul>
+                    <li>Use meaningful experiment names</li>
+                    <li>Log all relevant parameters and metrics</li>
+                    <li>Include data samples and preprocessing steps</li>
+                    <li>Document model architecture and training process</li>
+                    <li>Use tags to organize and filter experiments</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Running Training in a Separate Container</h2>
+            
+            <h3>1. Training Container Setup</h3>
+            <p>Create a new directory for your training container:</p>
+            <pre>
+training-container/
+├── Dockerfile
+├── requirements.txt
+├── train.py
+└── data/
+    └── your_dataset.csv</pre>
+
+            <h3>2. Training Container Dockerfile</h3>
+            <p>Create a `Dockerfile` for the training container:</p>
+            <pre>
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python packages
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy training script and data
+COPY train.py .
+COPY data/ ./data/
+
+# Set environment variables
+ENV MLFLOW_TRACKING_URI=http://mlflow:5000
+
+# Run the training script
+CMD ["python", "train.py"]</pre>
+
+            <h3>3. Requirements File</h3>
+            <p>Create a `requirements.txt` file:</p>
+            <pre>
+mlflow==2.8.1
+scikit-learn==1.3.0
+pandas==2.1.0
+numpy==1.24.3
+psycopg2-binary==2.9.7
+boto3==1.28.44</pre>
+
+            <h3>4. Update Docker Compose</h3>
+            <p>Add the training service to your `docker-compose.yml`:</p>
+            <pre>
+version: '3.8'
+
+services:
+  # ... existing services ...
+
+  training:
+    build:
+      context: ./training-container
+      dockerfile: Dockerfile
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - ./training-container/data:/app/data
+    depends_on:
+      - mlflow
+      - postgres
+      - minio
+    networks:
+      - mlflow_network</pre>
+
+            <h3>5. Update Training Script</h3>
+            <p>Modify your `train.py` to use environment variables:</p>
+            <pre>
+import os
+import mlflow
+import mlflow.sklearn
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+import numpy as np
+
+def train_model(X_train, y_train, params):
+    model = RandomForestClassifier(**params)
+    model.fit(X_train, y_train)
+    return model
+
+def evaluate_model(model, X_test, y_test):
+    predictions = model.predict(X_test)
+    return {
+        'accuracy': accuracy_score(y_test, predictions),
+        'precision': precision_score(y_test, predictions, average='weighted'),
+        'recall': recall_score(y_test, predictions, average='weighted')
+    }
+
+def main():
+    # Get MLflow tracking URI from environment variable
+    mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI', 'http://mlflow:5000')
+    mlflow.set_tracking_uri(mlflow_tracking_uri)
+    
+    # Set experiment name
+    mlflow.set_experiment("containerized_training")
+    
+    # Load your dataset
+    data = pd.read_csv('/app/data/your_dataset.csv')
+    X = data.drop('target', axis=1)
+    y = data['target']
+    
+    # Split the data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Define hyperparameters to try
+    param_grid = {
+        'n_estimators': [100, 200],
+        'max_depth': [10, 20],
+        'min_samples_split': [2, 5]
+    }
+    
+    # Run experiments with different hyperparameters
+    for n_estimators in param_grid['n_estimators']:
+        for max_depth in param_grid['max_depth']:
+            for min_samples_split in param_grid['min_samples_split']:
+                params = {
+                    'n_estimators': n_estimators,
+                    'max_depth': max_depth,
+                    'min_samples_split': min_samples_split,
+                    'random_state': 42
+                }
+                
+                # Start MLflow run
+                with mlflow.start_run():
+                    # Log parameters
+                    mlflow.log_params(params)
+                    
+                    # Train model
+                    model = train_model(X_train, y_train, params)
+                    
+                    # Evaluate model
+                    metrics = evaluate_model(model, X_test, y_test)
+                    
+                    # Log metrics
+                    mlflow.log_metrics(metrics)
+                    
+                    # Log model
+                    mlflow.sklearn.log_model(model, "model")
+                    
+                    # Log additional artifacts
+                    feature_importance = pd.DataFrame({
+                        'feature': [f'feature_{i}' for i in range(X.shape[1])],
+                        'importance': model.feature_importances_
+                    })
+                    feature_importance.to_csv('feature_importance.csv', index=False)
+                    mlflow.log_artifact('feature_importance.csv')
+                    
+                    # Log training data sample
+                    pd.DataFrame(X_train[:100]).to_csv('training_sample.csv', index=False)
+                    mlflow.log_artifact('training_sample.csv')
+
+if __name__ == "__main__":
+    main()</pre>
+
+            <h3>6. Running the Training Container</h3>
+            <p>To run the training container:</p>
+            <pre>docker-compose up training</pre>
+
+            <div class="highlight-box">
+                <h4>Key Points for Containerized Training:</h4>
+                <ul>
+                    <li>The training container uses the same network as MLflow services</li>
+                    <li>Environment variables are passed from docker-compose to the container</li>
+                    <li>Data is mounted as a volume for easy updates</li>
+                    <li>The container waits for MLflow services to be ready before starting</li>
+                </ul>
+            </div>
+
+            <h3>7. Monitoring Training Progress</h3>
+            <p>You can monitor the training progress in several ways:</p>
+            <ol>
+                <li>View container logs:
+                    <pre>docker-compose logs -f training</pre>
+                </li>
+                <li>Check MLflow UI at <code>http://localhost:5000</code></li>
+                <li>Monitor MinIO console at <code>http://localhost:9001</code> for artifacts</li>
+            </ol>
+
+            <div class="highlight-box">
+                <h4>Best Practices for Containerized Training:</h4>
+                <ul>
+                    <li>Use environment variables for configuration</li>
+                    <li>Mount data volumes for easy updates</li>
+                    <li>Implement proper error handling and logging</li>
+                    <li>Use resource limits in production</li>
+                    <li>Implement health checks for services</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Best Practices</h2>
+            <div class="highlight-box">
+                <h4>Security Considerations:</h4>
+                <ul>
+                    <li>Change default passwords in production</li>
+                    <li>Use secure network configurations</li>
+                    <li>Implement proper access controls</li>
+                    <li>Regular backup of PostgreSQL data</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h4>Performance Optimization:</h4>
+                <ul>
+                    <li>Configure appropriate resource limits in Docker</li>
+                    <li>Use connection pooling for PostgreSQL</li>
+                    <li>Implement caching strategies</li>
+                    <li>Monitor system resources</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Troubleshooting</h2>
+            <div class="highlight-box">
+                <h4>Common Issues and Solutions:</h4>
+                <ul>
+                    <li><strong>Connection Issues:</strong> Check network configuration and service dependencies</li>
+                    <li><strong>Storage Problems:</strong> Verify volume permissions and storage capacity</li>
+                    <li><strong>Performance Issues:</strong> Monitor resource usage and adjust configurations</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Conclusion</h2>
+            <p>This setup provides a robust foundation for MLOps projects, enabling efficient experiment tracking, metric logging, and artifact management. The containerized approach ensures consistency across different environments and simplifies deployment.</p>
+
+            <div class="highlight-box">
+                <h4>Next Steps:</h4>
+                <ul>
+                    <li>Implement CI/CD pipelines for automated model training</li>
+                    <li>Set up monitoring and alerting</li>
+                    <li>Configure backup strategies</li>
+                    <li>Implement user authentication and authorization</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <p>&copy; 2025 Reda ADARDOR - Career profile</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html> 

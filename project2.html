@@ -3,112 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deep Learning Techniques</title>
+    <title>Aroma's decomposition - Career Profile</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
             background-color: #f4f4f4;
+            line-height: 1.6;
         }
-        .tech-header {
+        .blog-header {
             background-color: #333;
             color: #fff;
-            padding: 20px;
+            padding: 40px 0;
             text-align: center;
+            margin-bottom: 30px;
             position: relative;
         }
-        .return-button {
+        .blog-post {
+            background-color: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .project-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: block;
+        }
+        .image-caption {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .back-link {
             position: absolute;
             top: 20px;
             left: 20px;
             color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease-in-out;
         }
-        .content {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            margin: 20px;
+        .back-link:hover {
+            color: #007bff;
+            text-decoration: none;
         }
-        h1, h2, h3 {
+        footer {
+            background-color: #333;
             color: #fff;
+            padding: 20px 0;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
-
-    <header class="tech-header">
-        <a href="index.html" class="return-button"><i class="fas fa-home"></i> Return</a>
+    <header class="blog-header">
+        <a href="index.html" class="back-link">← Back to Home</a>
         <h1>Aroma's decomposition</h1>
-        <p>Development of an Automated Molecular Analysis Tool for Aroma Composition </p>
+        <p class="lead">Detecting molecular composition using sparse encoding</p>
     </header>
 
     <div class="container">
-        <div class="content">
-            <p>A leading industrial company aims to develop a tool that enables the study of the molecular composition of aromas in the market. The primary objectives are to stay competitive with other producers and implement quality control measures throughout their supply chain. By optimizing their processes, the company seeks to reduce manual intervention time in these analytical tasks.</p>    
-            <p>To address this challenge, we developed a fully automated end-to-end pipeline for data ingestion and preprocessing. The data, originating from a Gas Chromatography-Mass Spectrometry (GC-MS) instrument, consists of three-dimensional tabular datasets. A key component of our approach is the implementation of sparse coding techniques to detect molecules present in aromas. This method enables the identification of compounds by leveraging standardized molecular spectra, enhancing the accuracy and efficiency of aroma analysis.</p>
-        </div>
-        <!-- New Project Description Section -->
-        <div class="content d-flex align-items-center">
-            <div class="project-description">
-                <h4>Overview</h4>
-                <p>Sparse coding provides a powerful, automated approach to molecular identification in GC-MS analysis by leveraging the NIST spectral database. It improves detection accuracy, reduces manual workload, and enhances the overall efficiency of chemical analysis in industrial and research applications. For more information on sparse coding techniques, visit the <a href="https://github.com/bwohlberg/sporco">SPORCO GitHub repository</a>.</p>
-                <h4>Activities:</h4>
+        <div class="blog-post">
+            <h2 class="section-title">Project Overview</h2>
+            <p>This project focuses on developing an advanced system for detecting and analyzing the molecular composition of aroma samples using sparse encoding techniques. The goal is to provide accurate and efficient analysis of complex aromatic compounds.</p>
+
+            <div class="highlight-box">
+                <h4>Technical Approach:</h4>
+                <p>We implemented a sophisticated sparse encoding algorithm that can effectively decompose complex aroma samples into their constituent molecular components. This approach allows for precise identification and quantification of individual compounds within a mixture.</p>
+            </div>
+
+            <div class="image-container">
+                <img src="images/aroma.png" alt="Aroma Decomposition Process" class="project-image">
+                <p class="image-caption">Visualization of the aroma decomposition process and molecular analysis</p>
+            </div>
+
+            <h2 class="section-title">Key Features</h2>
+            <div class="highlight-box">
                 <ul>
-                    <li>Preprocessed raw chromatographic signals to improve data quality and ensure consistency.</li>
-                    <li>Applied sparse coding techniques to encode chromatogram peaks into low-dimensional representations.</li>
-                    <li>Identified key molecular markers responsible for differentiating aroma profiles.</li>
-                </ul>
-                <h4>How it works:</h4>
-                <h2>Data Preprocessing</h2>
-                <ul>
-                    <li>The raw GC-MS signal (chromatograms and mass spectra) is collected.</li>
-                    <li>Baseline correction, noise filtering, and peak detection are performed to extract relevant spectral information.</li>
-                </ul>
-                
-                <h5>Dictionary Construction Using NIST Database</h5>
-                <ul>
-                    <li>The NIST database contains standardized mass spectra of known molecules.</li>
-                    <li>These spectra are used to construct a dictionary where each basis function (column) represents a reference spectrum of a molecule.</li>
-                </ul>
-                
-                <h5>Sparse Decomposition of the Sample Spectrum</h5>
-                <ul>
-                    <li>Given an unknown GC-MS spectrum, sparse coding finds a sparse combination of dictionary entries that best reconstructs the observed signal.</li>
-                    <li>This is typically formulated as:</li>
-                </ul>
-                <div style="text-align: center; font-size: 1.5em;">
-                    X = D ⋅ A + ε
-                </div>
-                <p>In this equation:</p>
-                <ul>
-                    <li><strong>X</strong> represents the observed spectrum, which is the input GC-MS data.</li>
-                    <li><strong>D</strong> stands for the dictionary, derived from NIST spectra.</li>
-                    <li><strong>A</strong> is the sparse coefficient matrix, showing the contribution of each molecule.</li>
-                </ul>
-                <p>L1-norm minimization is used to ensure only a few dictionary elements (molecules) contribute to the reconstruction.</p>
-                
-                <h4>Molecule Identification</h4>
-                <ul>
-                    <li>The nonzero entries in <code>A</code> indicate the presence of corresponding molecules from the NIST database.</li>
-                    <li>The identified molecules are validated using retention times and intensity patterns.</li>
-                </ul>
-                <h4>Achievements:</h4>
-                <ul>
-                    <li>Developed an automated GC-MS analysis pipeline leveraging sparse encoding, reducing manual workload by 50%.</li>
-                    <li>Built an interactive sparse representation tool for real-time chromatographic data analysis, improving efficiency and accuracy.</li>
+                    <li>High-precision molecular composition detection</li>
+                    <li>Real-time analysis capabilities</li>
+                    <li>Efficient sparse encoding implementation</li>
+                    <li>Comprehensive compound database integration</li>
                 </ul>
             </div>
-            <img src="images/aroma.png" alt="Frugal Learning Technology" class="mb-3" style="max-width: 500px; height: auto;">
+
+            <h2 class="section-title">Results</h2>
+            <div class="highlight-box">
+                <p>Our implementation achieved significant improvements in both accuracy and processing speed compared to traditional methods. The system can now process complex aroma samples with high precision while maintaining real-time performance.</p>
+            </div>
         </div>
     </div>
 
-    <footer class="text-center py-4">
+    <footer class="text-center">
         <p>&copy; 2025 Reda ADARDOR - Career profile</p>
     </footer>
 
